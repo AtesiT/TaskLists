@@ -69,6 +69,7 @@ final class TableViewController: UITableViewController {
         guard let indexPath = tableView.indexPathForSelectedRow else {return}
         guard let tasksVC = segue.destination as? TasksTableViewController else {return}
         let taskList = taskLists[indexPath.row]
+        tasksVC.taskList = taskList
     }
     
     @IBAction func sortList(_ sender: UISegmentedControl) {
