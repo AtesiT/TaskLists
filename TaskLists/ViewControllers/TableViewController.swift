@@ -64,18 +64,51 @@ final class TableViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction, doneAction])
     }
     
-    @objc private func addButtonPressed() {
-        print("Check")
-    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let indexPath = tableView.indexPathForSelectedRow else {return}
         guard let tasksVC = segue.destination as? TasksTableViewController else {return}
+        let taskList = taskLists[indexPath.row]
+    }
+    
+    @IBAction func sortList(_ sender: UISegmentedControl) {
         
     }
+    
+    @objc private func addButtonPressed() {
+        print("Check")
+    }
+    
+    
 }
 
-//extension TableViewController {
-//    private func showAlert(title: String, message: String) {
+extension TableViewController {
+    private func showAlert(with taskList: TaskList? = nil, completion: (() -> Void)? = nil) {
+        let alertBuilder = AlertControllerBuilder(
+            title: taskList != nil ? "Edit List" : "New List",
+            message: "Please set title for a new task list"
+        )
+        
+        alertBuilder
+            .setTextField(withPlaceholder: "List Title", andText: taskList?.title)
+            .addAction(title: taskList != nil ? "Update List" : "Save List", style: .default) { [unowned self] newValue, _ in
+                if let taskList, let completion {
+                    storageManager.edit(taskList, newValue: newValue)
+                    completion()
+                    return
+                }
+                createTaskList(withTitle: newValue)
+            }
+            .addAction(title: "Cancel", style: .destructive)
+        
+        let alertController = alertBuilder.build()
+        present(alertController, animated: true)
+    }
+    
+    private func createTaskList(withTitle title: String) {
+        
+    }
+//    private func showAlerts(title: String, message: String) {
 //        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 //        let okAction = UIAlertAction(title: "OK", style: .default)
 //        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -83,4 +116,4 @@ final class TableViewController: UITableViewController {
 //        alert.addAction(cancelAction)
 //        present(alert, animated: true)
 //    }
-//}
+}
