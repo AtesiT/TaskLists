@@ -56,6 +56,37 @@ final class TasksTableViewController: UITableViewController {
     }
 }
 
+extension TasksTableViewController {
+    private func showAlert(withTask task: Task?, completion: (() -> Void)? = nil)  {
+        let alertBuilder = AlertControllerBuilder(
+            title: task != nil ? "Edit Task" : "New Task",
+            message: "What do you want to do?"
+        )
+        
+        alertBuilder
+            .setTextField(withPlaceholder: "Task Title", andText: task?.title)
+            .setTextField(withPlaceholder: "Note Title", andText: task?.note)
+            .addAction(
+                title: task != nil ? "Update Task" : "Save Task",
+                style: .default
+            ) { [unowned self] taskTitle, taskNote in
+                if let task, let completion {
+                    //  TODO: - edit task
+                    return
+                }
+                createTask(withTitle: taskTitle, andNote: taskNote)
+            }
+            .addAction(title: "Cancel", style: .destructive)
+        
+        let alertController = alertBuilder.build()
+        present(alertController, animated: true)
+    }
+    
+    private func createTask(withTitle title: String, andNote note: String) {
+        
+    }
+}
+
 //#Preview {
 //    TasksTableViewController()
 //}
