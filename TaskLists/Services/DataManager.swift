@@ -4,6 +4,8 @@ import RealmSwift
 final class DataManager {
     static let shared = DataManager()
     
+    private let storageManager = StorageManager.shared
+    
     private init() {}
     
     //  Здесь добавляем параметр completion для того, чтобы мы смогли раскрыть блок замыкания и внутри него обновить интерфейс
@@ -29,5 +31,11 @@ final class DataManager {
         shoppingList.tasks.append(milk)
         //  Если индекс поставить 0, то milk будет третьим, т.к. присваивается на место указанного индекса
         shoppingList.tasks.insert(contentsOf: [apples, bread], at: 1)
+        
+        //  Выполняем код(сохранение в Storage асинхронно, т.к. если данных будет много, чтобы не было зависаний)
+        DispatchQueue.main.async { [unowned self] in
+            storageManager.save([shoppingList, moviesList])
+            completion()
+        }
     }
 }
