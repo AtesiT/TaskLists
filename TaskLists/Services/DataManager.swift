@@ -11,6 +11,11 @@ final class DataManager {
         let shoppingList = TaskList()
         shoppingList.title = "Shopping List"
         
+        //  Лучше так не делать, так как читаемость кода становится хуже. Но возможность так сделать - имеется
+        let moviesList = TaskList(value: ["Movies List", Date(), [["Best film ever"], ["The best of the best", "Must have", Date(), true]] ])
+        
+        
+        
         //  Создаем пустой экземпляр класса со значениями по умолчанию. После создания - обновляем значения свойств.
         let milk = Task()
         milk.title = "Milk"
