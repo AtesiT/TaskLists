@@ -1,15 +1,18 @@
 import Foundation
-import Realm
+import RealmSwift
 
-final class TaskList {
-    var title = ""
-    var date = Date()
-    var tasks: [Task] = []
+//  Наследуеимся от Object
+
+final class TaskList: Object {
+    @Persisted var title = ""
+    @Persisted var date = Date()
+    //  Заменяем [Task], т.к. мы работаем в базе данных Realm и для этого есть спецальная коллекция в базе
+    @Persisted var tasks = List<Task>()
 }
 
-final class Task {
-    var title = ""
-    var note = ""
-    var date = Date()
-    var isComplete = false
+final class Task: Object {
+    @Persisted var title = ""
+    @Persisted var note = ""
+    @Persisted var date = Date()
+    @Persisted var isComplete = false
 }
