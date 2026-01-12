@@ -4,9 +4,15 @@ import RealmSwift
 final class StorageManager {
     static let shared = StorageManager()
     
-    private let realm = try! Realm()
+    private let realm: Realm
     
-    private init() {}
+    private init() {
+        do {
+            realm = try Realm()
+        } catch {
+            fatalError("Failet to initialize Realm: \(error)")
+        }
+    }
     
     func fetchData<T>(_ type: T.Type) -> Results<T> where T:RealmFetchable {
         realm.objects(T.self)
@@ -39,5 +45,17 @@ final class StorageManager {
     //  MARK: - Tasks
     func save(_ task: String, withnote note: String, to taskList: TaskList, completion: (Task) -> Void) {
         
+    }
+    
+    //  MARK: - Private Methods
+    //  Принимает пустой completion, чтобы мы могли развернуть внутри метода и взаимодействовать
+    private func write(completion: () -> Void) {
+        do {
+            try realm.write {
+                completion()
+            }
+        } catch {
+            print(error)
+        }
     }
 }
