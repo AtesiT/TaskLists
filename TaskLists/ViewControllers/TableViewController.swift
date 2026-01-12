@@ -48,9 +48,9 @@ final class TableViewController: UITableViewController {
         }
         
         let editAction = UIContextualAction(style: .normal, title: "Edit") { [unowned self] _, _, isDone in
-//            showAlert(title: <#T##String#>) {
-//                
-//            }
+            showAlert(with: taskList) {
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
             isDone(true)
         }
         
