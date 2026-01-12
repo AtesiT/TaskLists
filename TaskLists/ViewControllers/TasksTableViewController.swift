@@ -57,12 +57,12 @@ final class TasksTableViewController: UITableViewController {
     
     
     @objc private func addButtonPressed() {
-        
+        showAlert()
     }
 }
 
 extension TasksTableViewController {
-    private func showAlert(withTask task: Task?, completion: (() -> Void)? = nil)  {
+    private func showAlert(withTask task: Task? = nil, completion: (() -> Void)? = nil)  {
         let alertBuilder = AlertControllerBuilder(
             title: task != nil ? "Edit Task" : "New Task",
             message: "What do you want to do?"

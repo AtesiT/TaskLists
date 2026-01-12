@@ -22,6 +22,11 @@ final class TableViewController: UITableViewController {
         taskLists = storageManager.fetchData(TaskList.self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,7 +85,7 @@ final class TableViewController: UITableViewController {
     }
     
     @objc private func addButtonPressed() {
-        print("Check")
+        showAlert()
     }
     
     private func createTempData() {
