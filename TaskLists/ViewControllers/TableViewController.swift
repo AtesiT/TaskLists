@@ -19,7 +19,7 @@ final class TableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = editButtonItem
         
         createTempData()
-        taskLists = storageManager.fetchTrackList()
+        taskLists = storageManager.fetchData(TaskList.self)
     }
     
     // MARK: - Table view data source

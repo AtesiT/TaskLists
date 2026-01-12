@@ -5,8 +5,8 @@ final class TasksTableViewController: UITableViewController {
 
     var taskList: TaskList!
     
-    private var currentTasks: [Task] = []
-    private var completedTasks: [Task] = []
+    private var currentTasks: Results<Task>!
+    private var completedTasks: Results<Task>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +18,9 @@ final class TasksTableViewController: UITableViewController {
             action: #selector(addButtonPressed)
         )
         navigationItem.rightBarButtonItems = [addButton, editButtonItem]
+        
+        currentTasks = taskList.tasks.filter("isComplete = false")
+        completedTasks = taskList.tasks.filter("isComplete = true")
     }
 
     // MARK: - Table view data source

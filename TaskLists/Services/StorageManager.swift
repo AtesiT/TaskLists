@@ -8,8 +8,8 @@ final class StorageManager {
     
     private init() {}
     
-    func fetchTrackList() -> Results<TaskList> {
-        realm.objects(TaskList.self)
+    func fetchData<T>(_ type: T.Type) -> Results<T> where T:RealmFetchable {
+        realm.objects(T.self)
     }
     
     //  Когда пользователи будут взаимодействовать с приложением, этот метод вызываться никогда не будет. Потому что позволяет сохранить в базе сохранить набор данных (набор списков). Набор списков мы можем сохранить только программно. Одноразовый метод ниже позволяет сформировать контент, при установке приложения.
