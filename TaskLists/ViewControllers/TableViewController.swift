@@ -118,7 +118,10 @@ extension TableViewController {
     }
     
     private func createTaskList(withTitle title: String) {
-        
+        storageManager.save(title) { taskList in
+            let rowIndex = IndexPath(row: taskLists.index(of: taskList) ?? 0, section: 0)
+            tableView.insertRows(at: [rowIndex], with: .automatic)
+        }
     }
 //    private func showAlerts(title: String, message: String) {
 //        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

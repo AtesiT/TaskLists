@@ -27,7 +27,11 @@ final class StorageManager {
     
     //  Пользователь может сам добавить лишь один список, а не несколько.
     func save(_ taskList: String, completion: (TaskList) -> Void) {
-        
+        write {
+            let taskList = TaskList(value: [taskList])
+            realm.add(taskList)
+            completion(taskList)
+        }
     }
     
     func delete(_ taskList: TaskList) {
