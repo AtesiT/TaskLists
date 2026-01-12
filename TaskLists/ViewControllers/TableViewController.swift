@@ -1,8 +1,9 @@
 import UIKit
+import RealmSwift
 
 final class TableViewController: UITableViewController {
     
-    private var taskLists: [TaskList]!
+    private var taskLists: Results<TaskList>!
     private let storageManager = StorageManager.shared
     private let dataManager = DataManager.shared
     
