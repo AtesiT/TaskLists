@@ -5,6 +5,7 @@ final class TasksTableViewController: UITableViewController {
 
     var taskList: TaskList!
     
+    private var storageManager = StorageManager.shared
     private var currentTasks: Results<Task>!
     private var completedTasks: Results<Task>!
     
@@ -87,7 +88,10 @@ extension TasksTableViewController {
     }
     
     private func createTask(withTitle title: String, andNote note: String) {
-        
+        storageManager.save(title, withnote: note, to: taskList) { task in
+            let rowIndex = IndexPath(row: currentTasks.index(of: task) ?? 0, section: 0)
+            tableView.insertRows(at: [rowIndex], with: .automatic)
+        }
     }
 }
 
